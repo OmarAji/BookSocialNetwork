@@ -52,7 +52,7 @@ public class User implements UserDetails, Principal {
     private List<Role> roles;
 
 
-    private String fullName() {
+    public String getFullName() {
         return firstname + " " + lastname;
     }
 
