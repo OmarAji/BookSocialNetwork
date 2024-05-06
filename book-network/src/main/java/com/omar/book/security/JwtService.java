@@ -60,8 +60,7 @@ public class JwtService {
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
                 .claim("authorities", authorities)
                 .signWith(getSignInKey())
-                .compact()
-                ;
+                .compact();
     }
 
 
