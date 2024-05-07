@@ -1,5 +1,7 @@
 package com.omar.book.user;
 
+import com.omar.book.book.Book;
+import com.omar.book.history.BookTransactionHistory;
 import com.omar.book.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -48,11 +50,18 @@ public class User implements UserDetails, Principal {
     private LocalDateTime lastModifiedDate;
 
 
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
 
-    private String fullName() {
+    @OneToMany(mappedBy = "user" )
+    private List<BookTransactionHistory> histories;
+
+
+    public String getFullName() {
         return firstname + " " + lastname;
     }
 

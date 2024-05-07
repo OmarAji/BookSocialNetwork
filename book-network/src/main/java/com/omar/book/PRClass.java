@@ -5,6 +5,6 @@ public class PRClass {
 
     public static void myMethod() {
 
-        System.out.println("This is Main Value");
+        System.out.println("This is main 01 Value");
     }
 }
