@@ -1,6 +1,7 @@
 package com.omar.book.book;
 
 
+import com.omar.book.file.FileUtils;
 import com.omar.book.history.BookTransactionHistory;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,7 @@ public class BookMapper {
                 .archived(book.isArchived())
                 .shareable(book.isShareable())
                 .owner(book.getOwner().getFullName())
-                // TODO after implement file Upload
-//                .cover()
+                .cover(FileUtils.readFileFromLocation(book.getBookCover()))
                 .build();
     }
 
