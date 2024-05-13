@@ -7,3 +7,8 @@ div {
 i {
   cursor: pointer;
 }
+.overflow-scroll {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
