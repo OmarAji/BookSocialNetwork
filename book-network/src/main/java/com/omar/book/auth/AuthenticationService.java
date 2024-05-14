@@ -53,7 +53,7 @@ public class AuthenticationService {
                 .enabled(false)
                 .roles(List.of(userRole))
                 .build();
-
+        // TODO handle duplicate emails
         userRepository.save(user);
         sendValidationEmail(user);
 
