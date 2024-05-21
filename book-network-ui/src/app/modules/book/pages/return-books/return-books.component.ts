@@ -1,25 +1,23 @@
 import {Component, OnInit} from '@angular/core';
 import {PageResponseBorrowedBookResponse} from "../../../../services/models/page-response-borrowed-book-response";
+import {FeedbackRequest} from "../../../../services/models/feedback-request";
 import {BorrowedBookResponse} from "../../../../services/models/borrowed-book-response";
 import {BookService} from "../../../../services/services/book.service";
-import {FeedbackRequest} from "../../../../services/models/feedback-request";
 import {FeedbackService} from "../../../../services/services/feedback.service";
 
 @Component({
-  selector: 'app-borrowed-book-list',
-  templateUrl: './borrowed-book-list.component.html',
-  styleUrls: ['./borrowed-book-list.component.scss']
+  selector: 'app-return-books',
+  templateUrl: './return-books.component.html',
+  styleUrls: ['./return-books.component.scss']
 })
-export class BorrowedBookListComponent implements OnInit {
-  borrowedBooks: PageResponseBorrowedBookResponse = {};
+export class ReturnBooksComponent implements OnInit{
+  returnedBooks: PageResponseBorrowedBookResponse = {};
   page: number = 0;
   size: number = 5;
-  feedbackRequest: FeedbackRequest = {bookId: 0, comment: "", note: 0};
   selectedBook: BorrowedBookResponse | undefined = undefined;
 
   constructor(
     private bookService: BookService,
-    private feedbackService: FeedbackService
   ) {
   }
 
@@ -28,19 +26,14 @@ export class BorrowedBookListComponent implements OnInit {
   }
 
 
-  returnBorrowedBook(book: BorrowedBookResponse) {
-    this.selectedBook = book;
-    this.feedbackRequest.bookId = book.id as number;
-
-  }
 
   private findAllBorrowedBooks() {
-    this.bookService.findAllBorrowedBooks({
+    this.bookService.findAllReturnedBooks({
       page: this.page,
       size: this.size
     }).subscribe({
       next: (resp) => {
-        this.borrowedBooks = resp;
+        this.returnedBooks = resp;
       }
     })
   }
@@ -66,12 +59,12 @@ export class BorrowedBookListComponent implements OnInit {
   }
 
   goToLastPage() {
-    this.page = this.borrowedBooks.totalPages as number - 1;
+    this.page = this.returnedBooks.totalPages as number - 1;
     this.findAllBorrowedBooks();
   }
 
   get isLastPage(): boolean {
-    return this.page == this.borrowedBooks.totalPages as number - 1;
+    return this.page == this.returnedBooks.totalPages as number - 1;
   }
 
   returnBook(withFeedback: boolean) {
@@ -79,9 +72,6 @@ export class BorrowedBookListComponent implements OnInit {
       'book-id': this.selectedBook?.id as number
     }).subscribe({
       next: (res) => {
-        if(withFeedback) {
-          this.giveFeedback();
-        }
         this.selectedBook = undefined;
         this.findAllBorrowedBooks();
       }
@@ -89,11 +79,4 @@ export class BorrowedBookListComponent implements OnInit {
   }
 
 
-  private giveFeedback() {
-    this.feedbackService.saveFeedback({
-      body: this.feedbackRequest
-    }).subscribe({
-      next: () => {}
-    });
-  }
 }
