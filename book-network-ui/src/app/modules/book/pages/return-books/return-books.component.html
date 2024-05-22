@@ -1,3 +1,14 @@
+<h2>My returned book</h2>
+<div
+  *ngIf="message"
+  class="alert"
+  [class.alert-danger]="level === 'error'"
+  [class.alert-success]="level === 'success'"
+>
+  {{ message }}
+</div>
+<hr>
+
 <div >
   <table class="table">
     <thead>
@@ -23,7 +34,7 @@
         <div class="d-flex gap-2 ">
           <i *ngIf="book.returned" class="fa-regular fa-paper-plane text-primary cursor-pointer"></i>
           <i *ngIf="!book.returned"  class="fa-solid fa-paper-plane text-success cursor-pointer"></i>
-          <i class="fa-solid fa-circle-check cursor-pointer" [class.text-success]="book.returnApproved"></i>
+          <i class="fa-solid fa-circle-check cursor-pointer" (click)="approveBookReturn(book)" [class.text-success]="book.returnApproved"></i>
         </div>
       </td>
 

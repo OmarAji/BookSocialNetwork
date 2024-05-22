@@ -15,6 +15,8 @@ export class ReturnBooksComponent implements OnInit{
   page: number = 0;
   size: number = 5;
   selectedBook: BorrowedBookResponse | undefined = undefined;
+  message: string = '';
+  level: string = 'success';
 
   constructor(
     private bookService: BookService,
@@ -79,4 +81,23 @@ export class ReturnBooksComponent implements OnInit{
   }
 
 
+  approveBookReturn(book: BorrowedBookResponse) {
+    if(!book.returned) {
+      this.level = 'error';
+      this.message= 'Book return can not be approved';
+      return;
+    }
+    this.bookService.returnBorrowBook({
+      'book-id' : book.id as number
+    }).subscribe({
+      next: () =>  {
+        this.level = 'success';
+        this.message= 'Book returned approved';
+        this.findAllBorrowedBooks();
+      },
+      error: (err) => {
+
+      }
+    })
+  }
 }
