@@ -19,6 +19,7 @@ COPY --from=build /build/target/book-network-*.jar /app/
 
 EXPOSE 8088
 
+
 ENV JAR_VERSION=${APP_VERSION}
 ENV ACTIVE_PROFILE=${PROFILE}
 ENV DB_URL=jdbc:postgresql://postgres-sql-bsn:5432/book_social_network

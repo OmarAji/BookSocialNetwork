@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
 
-
     private final AuthenticationService authService;
 
 
@@ -42,8 +41,6 @@ public class AuthenticationController {
     ) throws MessagingException {
         authService.activateAccount(token);
     }
-
-
 
 
 }
