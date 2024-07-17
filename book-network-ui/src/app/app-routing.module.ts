@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'books',
     loadChildren: () => import('./modules/book/book.module').then(m => m.BookModule),
     canActivate: [authGuard]
+  },
+  {
+    path: '**',
+    redirectTo: 'books'
   }
 ];
 
