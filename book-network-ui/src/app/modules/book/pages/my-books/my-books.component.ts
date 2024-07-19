@@ -10,7 +10,7 @@ import {BookResponse} from "../../../../services/models/book-response";
   styleUrls: ['./my-books.component.scss']
 })
 export class MyBooksComponent implements OnInit {
-  size: number = 2;
+  size: number = 5;
   page: number = 0;
   bookResponse: PageResponseBookResponse = {};
 
