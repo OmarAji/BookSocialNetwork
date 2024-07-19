@@ -31,4 +31,19 @@ export class TokenService {
     }
     return true;
   }
+
+  getFullName(): string {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        return '';
+      }
+      const jwtHelper = new JwtHelperService();
+      const decodedToken = jwtHelper.decodeToken(token);
+      return decodedToken?.fullName ?? '';
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return '';
+    }
+  }
 }
